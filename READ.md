@@ -1,1 +1,0 @@
-### Weld Quality Prediction
