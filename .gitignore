@@ -1,2 +1,3 @@
 weld-pred
-data/welddb.data
+welddb.data
+welddb.parquet
