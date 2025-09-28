@@ -4,3 +4,6 @@ welddb.parquet
 weld_descriptive_stats.xlsx
 weld_descriptive_stats.csv
 weld_descriptive_stats.html
+venv
+config/keys.json
+analytics/data/clean_weld_quality_dataset.csv
