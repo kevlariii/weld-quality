@@ -1,3 +1,6 @@
 weld-pred
 welddb.data
 welddb.parquet
+venv
+config/keys.json
+analytics/data/clean_weld_quality_dataset.csv
