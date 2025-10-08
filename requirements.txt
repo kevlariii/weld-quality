@@ -11,3 +11,4 @@ plotly
 xgboost
 lightgbm
 joblib
+fastparquet
