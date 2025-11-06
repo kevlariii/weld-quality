@@ -1,6 +1,5 @@
 weld-pred
 welddb.data
-welddb.parquet
 weld_descriptive_stats.xlsx
 weld_descriptive_stats.csv
 weld_descriptive_stats.html
