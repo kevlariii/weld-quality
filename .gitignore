@@ -7,3 +7,6 @@ weld_descriptive_stats.html
 venv
 config/keys.json
 analytics/data/clean_weld_quality_dataset.csv
+.env
+__pycache__
+.DS_Store
