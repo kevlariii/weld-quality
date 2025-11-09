@@ -58,7 +58,7 @@ def impute_features_for_target(target_name):
     
     # Check if directory exists
     if not target_dir.exists():
-        print(f"/!\ Directory not found: {target_dir}")
+        print(f"[!] Directory not found: {target_dir}")
         return
     
     # Load data
@@ -145,7 +145,7 @@ def impute_features_for_target(target_name):
     if train_missing + val_missing + test_missing == 0:
         print(f"  ==> All missing values imputed successfully!")
     else:
-        print(f"  /!\ Warning: {train_missing + val_missing + test_missing} missing values remain")
+        print(f"  [!] Warning: {train_missing + val_missing + test_missing} missing values remain")
     
     # Save cleaned data
     print(f"\n  Saving cleaned datasets...")

@@ -97,7 +97,7 @@ def load_data(target: str, data_version: str = "pca", base_path: str = None):
         missing_test = X_test.isnull().sum().sum()
         
         if missing_train + missing_val + missing_test > 0:
-            print(f"/!\  Warning: Missing values detected!")
+            print(f"[!]  Warning: Missing values detected!")
             print(f"   Train: {missing_train}, Val: {missing_val}, Test: {missing_test}")
         else:
             print(f"--> No missing values detected")
