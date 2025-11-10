@@ -1,0 +1,7 @@
+target,version,champion_model,val_f1,val_acc,test_f1,test_acc
+charpy_temp_C,pca,LabelSpreading,56.51,56.82,52.66,52.84
+charpy_toughness_J,pca,LabelPropagation,62.83,64.77,62.85,63.07
+elongation_pct,all_features,RF + SelfTraining,68.64,68.57,68.78,68.57
+reduction_area_pct,all_features,RF + LabelPropagation,75.46,76.6,79.23,80.14
+uts_MPa,all_features,SelfTraining,77.57,77.7,80.19,79.73
+yield_strength_MPa,all_features,SelfTraining,71.45,71.79,72.91,73.08
