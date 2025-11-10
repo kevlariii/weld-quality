@@ -1,0 +1,4 @@
+Method,kernel,n_neighbors,max_iter,alpha,base_estimator,threshold,verbose
+LabelPropagation,knn,10.0,2000,,,,
+LabelSpreading,knn,10.0,2000,0.3,,,
+SelfTraining,,,20,,LogisticRegression,0.8,False

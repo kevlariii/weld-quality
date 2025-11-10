@@ -1,0 +1,4 @@
+Method,kernel,gamma,max_iter,alpha,base_estimator,threshold,verbose
+LabelPropagation,rbf,5.0,2000,,,,
+LabelSpreading,rbf,10.0,2000,0.3,,,
+SelfTraining,,,20,,RandomForestClassifier,0.6,False

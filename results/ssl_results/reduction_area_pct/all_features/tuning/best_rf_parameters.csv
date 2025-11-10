@@ -1,0 +1,4 @@
+SSL_Method,n_estimators,min_samples_split,min_samples_leaf,max_features,max_depth
+LabelPropagation,100,2,2,sqrt,
+LabelSpreading,50,5,1,log2,15.0
+SelfTraining,200,2,2,log2,15.0

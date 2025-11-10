@@ -1,0 +1,7 @@
+Model,Val Accuracy,Val F1,Test Accuracy,Test F1
+LabelPropagation,67.31%,66.63%,59.62%,59.17%
+LabelSpreading,64.10%,63.74%,58.33%,57.98%
+SelfTraining,71.79%,71.45%,73.08%,72.91%
+RF + LabelPropagation,69.87%,69.69%,69.87%,69.94%
+RF + LabelSpreading,66.03%,64.86%,67.95%,68.16%
+RF + SelfTraining,68.59%,68.07%,70.51%,70.31%
