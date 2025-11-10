@@ -17,47 +17,62 @@ weld-quality/
 ├── README.md
 ├── requirements.txt
 ├── config/
-│   └── keys.json                      # API keys configuration
+│   └── keys.json                      # API keys and configuration
 ├── data/
 │   ├── clean_weld_quality_dataset.csv # Cleaned raw dataset
 │   └── data_splits/                   # Per-target train/val/test splits
-│       ├── yield_strength_MPa/
-│       │   ├── X_train_clean.csv      # Cleaned features (35-36 features)
-│       │   ├── X_train_pca.csv        # PCA-reduced features (~10 features)
-│       │   ├── X_val_clean.csv
-│       │   ├── X_val_pca.csv
-│       │   ├── X_test_clean.csv
-│       │   ├── X_test_pca.csv
-│       │   ├── y_train.csv            # Includes NaN for unlabeled data
-│       │   ├── y_val.csv
-│       │   └── y_test.csv
-│       ├── uts_MPa/
+│       ├── charpy_temp_C/
+│       ├── charpy_toughness_J/
 │       ├── elongation_pct/
 │       ├── reduction_area_pct/
-│       ├── charpy_temp_C/
-│       └── charpy_toughness_J/
+│       ├── uts_MPa/
+│       └── yield_strength_MPa/
+├── figs/                              # Visualization and analysis figures
+│   ├── all_features/                  # Feature-based visualizations
+│   ├── classes/                       # Class distribution plots
+│   └── pca/                           # PCA component visualizations
 ├── results/
-│   └── ssl_results/                   # Semi-supervised learning results
-│       └── {target_name}/
-│           ├── LabelPropagation_predictions.csv
-│           ├── LabelSpreading_predictions.csv
-│           ├── RF_LabelPropagation_predictions.csv
-│           ├── RF_LabelSpreading_predictions.csv
-│           ├── model_comparison.csv
-│           └── quality_thresholds.csv
+│   ├── ssl_results/                   # Semi-supervised learning outputs
+│   │   ├── charpy_temp_C/
+│   │   │   ├── all_features/
+│   │   │   │   └── tuning/            # Hyperparameter tuning results
+│   │   │   └── pca/
+│   │   │       └── tuning/
+│   │   ├── charpy_toughness_J/
+│   │   │   ├── all_features/
+│   │   │   │   └── tuning/
+│   │   │   └── pca/
+│   │   │       └── tuning/
+│   │   ├── elongation_pct/
+│   │   │   ├── all_features/
+│   │   │   │   └── tuning/
+│   │   │   └── pca/
+│   │   │       └── tuning/
+│   │   ├── reduction_area_pct/
+│   │   │   ├── all_features/
+│   │   │   │   └── tuning/
+│   │   │   └── pca/
+│   │   │       └── tuning/
+│   │   ├── uts_MPa/
+│   │   │   ├── all_features/
+│   │   │   │   └── tuning/
+│   │   │   └── pca/
+│   │   │       └── tuning/
+│   │   └── yield_strength_MPa/
+│   │       ├── all_features/
+│   │       │   └── tuning/
+│   │       └── pca/
+│   │           └── tuning/
+│   └── _comparisons/                  # model comparison results
 └── src/
-    ├── analytics/
-    │   ├── analytics_utils.py         # Imputation utilities
-    │   └── pca.ipynb                  # PCA analysis
-    ├── data/
-    │   ├── 01.dataset_cleaning.ipynb  # Initial data cleaning
-    │   ├── 02.data_preparation.ipynb  # Create train/val/test splits
-    │   ├── 03.impute_target_splits.py # Automated feature imputation
-    │   ├── 04.eda.ipynb               # Exploratory data analysis
-    │   └── 04.pca.ipynb               # PCA dimensionality reduction
-    └── semi_supervised/
-        ├── loader.py                  # Data loading utilities
-        └── semi_supervied_training.ipynb  # SSL training pipeline
+    ├── analytics/                     # Analysis utilities and notebooks
+    ├── compare/                       # Model comparison scripts
+    ├── data/                          # Data cleaning and preprocessing
+    ├── pre-processing/                # Feature engineering and scaling
+    ├── semi_supervised/               # Semi-supervised learning pipelines
+    │   └── __pycache__/
+    └── utils/                         # Helper functions and shared utilities
+
 ```
 
 ## Installation
