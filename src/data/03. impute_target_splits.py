@@ -1,10 +1,48 @@
 """
-Impute missing values in features for each target's data splits.
+Impute missing feature values for each target's train/val/test splits.
 
-This script processes each target directory created in 02. data_preparation.ipynb:
-- Loads X_train, X_val, X_test for each target
-- Applies consistent imputation strategy across all splits
-- Saves cleaned versions back to the same directories
+Purpose
+-------
+This script standardizes feature imputation across the per-target splits produced
+by `02. data_preparation.ipynb`. For each target it:
+
+- Loads X_train, X_val and X_test from the target's split directory.
+- Drops very sparse columns based on the training set.
+- Applies a reproducible, train-fitted imputation strategy:
+    1. Drop columns with > DROP_THRESHOLD missing values (computed from X_train).
+    2. Fill selected composition columns with the training mean.
+    3. Fill other specified composition columns with 0 (domain-driven default).
+    4. Fit a SimpleImputer(strategy="most_frequent") on the remaining columns of
+         X_train and apply it to X_val and X_test.
+- Verifies that no missing values remain (or reports how many do).
+- Writes cleaned CSVs back to the same directory with the suffix "_clean".
+
+Inputs
+------
+- SPLITS_DIR: root folder containing one subfolder per target (each with CSV splits).
+- TARGET_COLS: list of target names to process.
+
+Outputs
+-------
+For each target directory the script writes:
+
+- X_train_clean.csv, X_val_clean.csv, X_test_clean.csv
+
+Notes and guarantees
+--------------------
+- Imputers are fitted only on the training set to avoid data leakage.
+- Columns are dropped only when sparse on the training set; the same columns are
+    removed from val/test to keep shapes aligned.
+- The script prints a concise progress and summary report for each target.
+
+Usage example
+-------------
+Run from the repository root (so relative paths resolve as expected):
+
+        python src/data/03.\ impute_target_splits.py
+
+You can customize DROP_THRESHOLD, COMPOSITION_MEAN_COLS and COMPOSITION_ZERO_COLS
+variables at the top of the file to adjust behavior for your dataset.
 """
 
 import os
@@ -30,7 +68,8 @@ TARGET_COLS = [
 # Composition columns to impute with mean
 COMPOSITION_MEAN_COLS = ["sulfur_wt_pct", "phosphorus_wt_pct"]
 
-# Composition columns to impute with 0 (not deliberately added)
+# Composition columns to impute with 0 
+# (not deliberately added based on Tracey Cool, Design of Steel Weld Deposits, PhD Thesis, University of Cambridge, 1996)
 COMPOSITION_ZERO_COLS = [
     'carbon_wt_pct', 'silicon_wt_pct', 'manganese_wt_pct', 
     'nickel_wt_pct', 'chromium_wt_pct', 'molybdenum_wt_pct', 
