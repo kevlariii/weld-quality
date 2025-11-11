@@ -1,3 +1,44 @@
+"""Semi-supervised training utilities and hyperparameter tuning helpers.
+
+This module contains convenience functions used during semi-supervised
+experiments for converting continuous targets into discrete quality classes,
+tuning semi-supervised labelers (SelfTraining, LabelPropagation, LabelSpreading),
+and tuning a downstream RandomForest classifier on labels produced by the
+semi-supervised methods.
+
+Provided utilities:
+    - convert_to_quality_classes_tertiles(y_train, y_val, y_test):
+            Convert continuous target values into 3 quality classes (tertiles)
+            using thresholds computed only from labeled training data. Unlabeled
+            entries are marked with -1 for compatibility with scikit-learn's
+            semi-supervised estimators.
+
+    - tune_ssl_model(ModelClass, param_grid, X_train, y_train_classes, X_val,
+        y_val_classes, method_name):
+            Grid-like search helper that evaluates SelfTrainingClassifier or
+            LabelPropagation/LabelSpreading configurations and returns the best
+            fitted model plus a results DataFrame.
+
+    - tune_random_forest(X_train, y_train, X_val, y_val, param_grid,
+        ssl_method_name, n_iter=30):
+            RandomizedSearchCV wrapper to tune a RandomForestClassifier on labels
+            produced by an SSL method. Returns the best estimator and summary.
+
+Notes:
+    - Thresholds for discretization are computed from labeled training samples
+        only (avoids leakage). The conversion maps unlabeled targets to -1.
+    - The tuning helpers print concise summaries and return pandas DataFrames
+        of tested configurations and validation scores.
+    - This module focuses on experimentation and diagnostics; production
+        training pipelines should move tuning or model selection into separate
+        orchestrated scripts.
+
+Example:
+    >>> y_train_c, y_val_c, y_test_c, low, high = convert_to_quality_classes_tertiles(y_train, y_val, y_test)
+    >>> model, params, score, df = tune_ssl_model(LabelPropagation, param_grid, X_train, y_train_c, X_val, y_val_c, 'LabelPropagation')
+
+"""
+
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score, f1_score
 import warnings
 import pandas as pd 
@@ -59,7 +100,6 @@ def convert_to_quality_classes_tertiles(y_train, y_val, y_test):
             threshold_low, threshold_high)
 
 # SSL hyperparameter tuning function
-
 def _make_base_estimator(name_or_est):
     # Accept an already-built estimator or a short string
     if hasattr(name_or_est, "fit"):
@@ -178,7 +218,6 @@ def tune_ssl_model(ModelClass, param_grid, X_train, y_train_classes, X_val, y_va
     print(f"Validation F1 Score (weighted): {best_score*100:.2f}%")
     print(f"{'─'*70}")
     return best_model, best_params, best_score, results_df
-
 
 def tune_random_forest(X_train, y_train, X_val, y_val, param_grid, ssl_method_name, n_iter=30):
     """

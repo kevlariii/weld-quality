@@ -1,4 +1,43 @@
-### Data Loader
+"""Semi-supervised data loader utilities.
+
+This module provides a small helper for loading pre-processed feature splits
+and target columns for a chosen target variable. It is used by the
+semi-supervised training and evaluation workflows to load either PCA-reduced
+features or cleaned features from the local `data/data_splits/<target>/`
+directory.
+
+Key function:
+    - load_data(target, data_version='pca', base_path=None)
+
+Inputs
+    - target (str): one of the supported target column names listed in
+        `TARGET_COLS`.
+    - data_version (str): either "pca" (loads X_*_pca.csv) or "clean"
+        (loads X_*_clean.csv). Defaults to "pca".
+    - base_path (str or Path, optional): base path to the `data_splits`
+        directory. If None the function tries to infer the project root and use
+        `<project_root>/data/data_splits`.
+
+Returns
+    - tuple: ((X_train, y_train), (X_val, y_val), (X_test, y_test)) where
+        X_* are pandas.DataFrame and y_* are pandas.Series (squeezed if a single
+        column). On error the function prints a helpful message and returns
+        (None, None, None).
+
+Behavior and notes
+    - The loader prints basic diagnostics (shapes, missing values) to help
+        identify data-quality issues early.
+    - The scaler / PCA pipeline is not run here, this function only reads CSVs.
+    - Path resolution handles both script and notebook contexts; if your
+        repository layout differs, pass an explicit `base_path`.
+
+Example
+    >>> train, val, test = load_data('yield_strength_MPa', data_version='pca')
+    >>> X_train, y_train = train
+
+If PCA files are missing and you intend to use PCA features, run the PCA
+preparation notebook (`src/data/05. pca.ipynb`) to generate `X_*_pca.csv`.
+"""
 
 from pathlib import Path
 import pandas as pd
