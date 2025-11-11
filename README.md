@@ -65,10 +65,8 @@ weld-quality/
 │   │           └── tuning/
 │   └── _comparisons/                  # model comparison results
 └── src/
-    ├── analytics/                     # Analysis utilities and notebooks
     ├── compare/                       # Model comparison scripts
     ├── data/                          # Data cleaning and preprocessing
-    ├── pre-processing/                # Feature engineering and scaling
     ├── semi_supervised/               # Semi-supervised learning pipelines
     │   └── __pycache__/
     └── utils/                         # Helper functions and shared utilities
